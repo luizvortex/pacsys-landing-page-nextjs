@@ -1,21 +1,12 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Pacsys - Soluções Tecnológicas",
-  description: "Soluções inovadoras em tecnologia para o seu negócio",
-  keywords: ["tecnologia", "soluções", "pacsys", "inovação"],
-  authors: [{ name: "Pacsys" }],
-  openGraph: {
-    title: "Pacsys - Soluções Tecnológicas",
-    description: "Soluções inovadoras em tecnologia para o seu negócio",
-    type: "website",
-  },
-};
-
-export default async function HomeLayout({
+export default function HomeLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
-  return <>{children}</>;
+}>) {
+  return (
+    // Removemos html e body. Use uma div ou Fragment (<>...</>)
+    <div className="antialiased"> 
+      {children}
+    </div>
+  );
 }
