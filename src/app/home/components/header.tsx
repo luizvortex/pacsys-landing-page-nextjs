@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 import { ThemeToggle } from "../../../components/theme-toggle";
 import {
   Navbar,
@@ -17,7 +16,6 @@ import {
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme } = useTheme();
 
   const navItems = [
     { name: "Início", link: "#home" },
@@ -25,8 +23,6 @@ export function Header() {
     { name: "Sobre", link: "#sobre" },
     { name: "Contato", link: "#contato" },
   ];
-
-  const logoSrc = theme === "dark" ? "/images/pacsys-logo-dark.png" : "/images/pacsys-logo.png";
 
   return (
     <Navbar className="fixed top-0">
@@ -36,7 +32,7 @@ export function Header() {
           className="relative z-20 mr-4 flex items-center space-x-3 px-2 py-1"
         >
           <Image
-            src={logoSrc}
+            src="/images/pacsys-logo-ofc.png"
             alt="Pacsys Logo"
             width={180}
             height={180}
@@ -73,7 +69,7 @@ export function Header() {
             className="relative z-20 flex items-center space-x-2 px-2 py-1"
           >
             <Image
-              src={logoSrc}
+              src="/images/pacsys-logo-ofc.png"
               alt="Pacsys Logo"
               width={100}
               height={100}
