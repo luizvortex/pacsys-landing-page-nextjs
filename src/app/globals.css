@@ -105,4 +105,58 @@
   .bg-background {
     background-color: hsl(var(--background));
   }
+
+ /* Centraliza as bolinhas da paginação */
+.slick-dots-custom {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Estilo do botão das bolinhas */
+.slick-dots-custom li {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.slick-dots-custom li button {
+  width: 12px !important;
+  height: 12px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background-color: white !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Remove o ::before padrão do slick */
+.slick-dots-custom li button::before {
+  content: '' !important;
+  display: none !important;
+}
+
+/* Bolinha ativa - AZUL CLARO PACSYS */
+.slick-dots-custom li.slick-active button {
+  background-color: rgb(0, 176, 239) !important; 
+  transform: scale(1.2) !important;
+}
+
+/* Hover nas bolinhas - AZUL ESCURO PACSYS */
+.slick-dots-custom li button:hover {
+  background-color: rgb(0, 58, 147) !important; 
+  transform: scale(1.1) !important;
+}
+
+/* Hover na bolinha ativa - AZUL CLARO MAIS CLARO */
+.slick-dots-custom li.slick-active button:hover {
+  background-color: rgb(51, 195, 245) !important; 
+  transform: scale(1.2) !important;
+}
+
 }
