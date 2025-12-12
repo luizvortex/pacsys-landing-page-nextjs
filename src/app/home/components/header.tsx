@@ -45,7 +45,7 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <NavbarButton
+          {/* <NavbarButton
             variant="secondary"
             href="#contato"
             className="text-pacsys-dark dark:text-white"
@@ -58,7 +58,7 @@ export function Header() {
             className="bg-pacsys-dark hover:bg-pacsys-light transition-colors"
           >
             Começar Agora
-          </NavbarButton>
+          </NavbarButton> */}
         </div>
       </NavBody>
 
@@ -95,7 +95,8 @@ export function Header() {
             </a>
           ))}
           <div className="flex w-full flex-col gap-2 pt-4">
-            <NavbarButton
+            <ThemeToggle />
+            {/* <NavbarButton
               variant="secondary"
               href="#contato"
               className="w-full text-pacsys-dark dark:text-white"
@@ -110,7 +111,7 @@ export function Header() {
               onClick={() => setIsOpen(false)}
             >
               Começar Agora
-            </NavbarButton>
+            </NavbarButton> */}
           </div>
         </MobileNavMenu>
       </MobileNav>

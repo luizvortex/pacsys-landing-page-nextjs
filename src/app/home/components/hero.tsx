@@ -102,7 +102,7 @@ export function Hero() {
                 zIndex: 25,
               }}
             >
-              Pacsys: Tecnologia que Transforma
+              Tecnologia que Transforma
             </motion.h1>
 
             <motion.p
@@ -121,18 +121,6 @@ export function Hero() {
               otimizam resultados e mantêm sua empresa segura.
             </motion.p>
           </div>
-
-          {/* Botão clicável */}
-          <motion.a
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            href="#solutions"
-            className="bg-pacsys-light hover:bg-pacsys-dark text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl inline-block pointer-events-auto"
-            style={{ position: "relative", zIndex: 25 }}
-          >
-            Conheça as Soluções
-          </motion.a>
         </div>
       </div>
 
