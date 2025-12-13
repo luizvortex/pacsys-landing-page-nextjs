@@ -3,15 +3,15 @@
 import { useRef } from "react";
 import Slider from "react-slick";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const slideImages = [
-  "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1611095790444-1dfa35e37b52?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1974&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1607469154378-376b8a0663c5?q=80&w=2070&auto=format&fit=crop",
+  "/images/banner-1.png",
+  "/images/banner-1.png",
+  "/images/banner-1.png",
+  "/images/banner-1.png",
 ];
 
 export function Hero() {
@@ -66,25 +66,30 @@ export function Hero() {
         <Slider ref={sliderRef} {...settings} className="w-full h-full">
           {slideImages.map((url, index) => (
             <div key={index} className="w-full h-[70vh]">
-              <div
-                className="w-full h-[70vh] bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('${url}')`,
-                }}
-              />
+              <div className="relative w-full h-[70vh]">
+                <Image
+                  src={url}
+                  alt={`Banner ${index + 1}`}
+                  fill
+                  priority={index === 0}
+                  quality={90}
+                  className="object-cover"
+                  sizes="100vw"
+                />
+              </div>
             </div>
           ))}
         </Slider>
       </div>
 
       {/* Overlay Escuro (z-10) */}
-      <div
+      {/* <div
         className="absolute inset-0 bg-black pointer-events-none"
         style={{ zIndex: 10, opacity: 0.6 }}
-      />
+      /> */}
 
       {/* Conteúdo Centralizado (z-20) */}
-      <div
+      {/* <div
         className="absolute inset-0 pointer-events-none"
         style={{ zIndex: 20 }}
       >
@@ -122,7 +127,7 @@ export function Hero() {
             </motion.p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Setas Customizadas (z-30) */}
       <button

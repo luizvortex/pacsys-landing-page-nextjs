@@ -1,120 +1,133 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { MessageCircle, Send, Phone } from "lucide-react";
 import Image from "next/image";
-import { ThemeToggle } from "../../../components/theme-toggle";
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  MobileNavHeader,
-  MobileNavMenu,
-  MobileNavToggle,
-  NavbarButton,
-} from "@/components/ui/resizable-navbar";
 
 export function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const navItems = [
-    { name: "Início", link: "#home" },
-    { name: "Soluções", link: "#solucoes" },
-    { name: "Sobre", link: "#sobre" },
-    { name: "Contato", link: "#contato" },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight * 0.7;
+      setIsScrolled(window.scrollY > heroHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <Navbar className="fixed top-0">
-      <NavBody>
-        <a
-          href="#home"
-          className="relative z-20 mr-4 flex items-center space-x-3 px-2 py-1"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative h-10 w-auto"
         >
           <Image
             src="/images/pacsys-logo-ofc.png"
             alt="Pacsys Logo"
-            width={180}
-            height={180}
-            className="object-contain transition-opacity duration-300"
+            height={40}
+            width={120}
             priority
+            className="object-contain"
           />
-        </a>
+        </motion.div>
 
-        <NavItems items={navItems} />
+        {/* Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8">
+          {["Home", "About", "Services", "Career", "Network", "Contact"].map(
+            (link, index) => (
+              <motion.a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={`font-medium transition-colors hover:text-pacsys-light ${
+                  isScrolled
+                    ? "text-pacsys-dark hover:text-pacsys-light"
+                    : "text-white hover:text-pacsys-light"
+                }`}
+              >
+                {link}
+              </motion.a>
+            )
+          )}
+        </nav>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          {/* <NavbarButton
-            variant="secondary"
-            href="#contato"
-            className="text-pacsys-dark dark:text-white"
+        {/* Icons */}
+        <div className="flex items-center gap-4">
+          {/* WhatsApp */}
+          <motion.a
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            href="https://wa.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`p-2 rounded-full transition-colors ${
+              isScrolled
+                ? "bg-pacsys-light/10 text-pacsys-light hover:bg-pacsys-light/20"
+                : "bg-white/10 text-white hover:bg-white/20"
+            }`}
+            aria-label="WhatsApp"
           >
-            Fale Conosco
-          </NavbarButton>
-          <NavbarButton
-            variant="dark"
-            href="#contato"
-            className="bg-pacsys-dark hover:bg-pacsys-light transition-colors"
+            <MessageCircle size={20} />
+          </motion.a>
+
+          {/* Telegram */}
+          <motion.a
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            href="https://t.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`p-2 rounded-full transition-colors ${
+              isScrolled
+                ? "bg-pacsys-light/10 text-pacsys-light hover:bg-pacsys-light/20"
+                : "bg-white/10 text-white hover:bg-white/20"
+            }`}
+            aria-label="Telegram"
           >
-            Começar Agora
-          </NavbarButton> */}
+            <Send size={20} />
+          </motion.a>
+
+          {/* Phone */}
+          <motion.a
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            href="tel:+55"
+            className={`p-2 rounded-full transition-colors ${
+              isScrolled
+                ? "bg-pacsys-light/10 text-pacsys-light hover:bg-pacsys-light/20"
+                : "bg-white/10 text-white hover:bg-white/20"
+            }`}
+            aria-label="Phone"
+          >
+            <Phone size={20} />
+          </motion.a>
         </div>
-      </NavBody>
+      </div>
 
-      <MobileNav>
-        <MobileNavHeader>
-          <a
-            href="#home"
-            className="relative z-20 flex items-center space-x-2 px-2 py-1"
-          >
-            <Image
-              src="/images/pacsys-logo-ofc.png"
-              alt="Pacsys Logo"
-              width={100}
-              height={100}
-              className="object-contain transition-opacity duration-300"
-              priority
-            />
-          </a>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <MobileNavToggle isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
-          </div>
-        </MobileNavHeader>
-
-        <MobileNavMenu isOpen={isOpen}>
-          {navItems.map((item, idx) => (
-            <a
-              key={idx}
-              href={item.link}
-              onClick={() => setIsOpen(false)}
-              className="w-full text-left text-base font-medium text-neutral-600 hover:text-pacsys-light transition-colors dark:text-neutral-300"
-            >
-              {item.name}
-            </a>
-          ))}
-          <div className="flex w-full flex-col gap-2 pt-4">
-            <ThemeToggle />
-            {/* <NavbarButton
-              variant="secondary"
-              href="#contato"
-              className="w-full text-pacsys-dark dark:text-white"
-              onClick={() => setIsOpen(false)}
-            >
-              Fale Conosco
-            </NavbarButton>
-            <NavbarButton
-              variant="dark"
-              href="#contato"
-              className="w-full bg-pacsys-dark hover:bg-pacsys-light transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Começar Agora
-            </NavbarButton> */}
-          </div>
-        </MobileNavMenu>
-      </MobileNav>
-    </Navbar>
+      {/* Divider Line */}
+      <div
+        className={`h-px transition-opacity ${
+          isScrolled ? "bg-gray-200" : "bg-white/20"
+        }`}
+      />
+    </header>
   );
 }
