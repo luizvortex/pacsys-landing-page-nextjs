@@ -1,155 +1,132 @@
 "use client";
 
-import { useRef } from "react";
-import Slider from "react-slick";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-const slideImages = [
-  "/images/banner-1.png",
-  "/images/banner-1.png",
-  "/images/banner-1.png",
-  "/images/banner-1.png",
-];
+import { motion } from "framer-motion";
+import { 
+  Headset, 
+  Globe2, 
+  ShieldCheck, 
+  FileLock2
+} from "lucide-react";
 
 export function Hero() {
-  const sliderRef = useRef<Slider>(null);
-
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    fade: true,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    dotsClass: "slick-dots slick-dots-custom",
-    appendDots: (dots: React.ReactNode) => (
-      <div
-        style={{
-          position: "absolute",
-          bottom: "24px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 50,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <ul
-          style={{
-            display: "flex",
-            gap: "8px",
-            margin: 0,
-            padding: 0,
-            listStyle: "none",
-          }}
-        >
-          {dots}
-        </ul>
-      </div>
-    ),
-  };
+  // Configuração dos itens da barra inferior
+  const features = [
+    {
+      icon: Headset,
+      title: "Comunicação Ágil 24/7",
+      delay: 0.1,
+    },
+    {
+      icon: Globe2,
+      title: "Cobertura Nacional & Global",
+      delay: 0.2,
+    },
+    {
+      icon: ShieldCheck,
+      title: "Seguro & Certificado",
+      delay: 0.3,
+    },
+    {
+      icon: FileLock2,
+      title: "Proteção Rigorosa de Dados",
+      delay: 0.4,
+    },
+  ];
 
   return (
-    <section
-      id="home-hero-slider"
-      className="relative h-[70vh] w-full overflow-hidden"
-    >
-      {/* Slider (background, z-0) */}
-      <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <Slider ref={sliderRef} {...settings} className="w-full h-full">
-          {slideImages.map((url, index) => (
-            <div key={index} className="w-full h-[70vh]">
-              <div className="relative w-full h-[70vh]">
-                <Image
-                  src={url}
-                  alt={`Banner ${index + 1}`}
-                  fill
-                  priority={index === 0}
-                  quality={90}
-                  className="object-cover"
-                  sizes="100vw"
-                />
-              </div>
-            </div>
-          ))}
-        </Slider>
+    <section className="relative h-screen w-full overflow-hidden bg-black">
+      {/* background*/}
+      <div className="absolute inset-0 z-0">
+        <video
+          src="/videos/video-dev.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-50" // Opacidade ajustada para o bloom sobressair
+        />
+
+        {/* bloom*/}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Base escura subtil para garantir leitura */}
+          {/* <div className="absolute inset-0 bg-black/40" /> */}
+
+          <div 
+            className="absolute -top-[20%] -right-[10%] w-200 h-200 rounded-full blur-[120px] opacity-30 mix-blend-screen animate-pulse"
+            style={{ backgroundColor: 'var(--pacsys-light, #0EA5E9)' }} 
+          />
+          
+          {/* Bloom 2: Luz secundária (Azul Profundo) - Canto Inferior Esquerdo (perto da barra) */}
+          <div className="absolute -bottom-[10%] -left-[10%] w-150 h-150 bg-blue-900/40 rounded-full blur-[100px] opacity-40 mix-blend-screen" />
+          
+          {/* Overlay Gradiente Vertical: Integra o vídeo com o fundo preto da secção seguinte */}
+          {/* <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" /> */}
+        </div>
       </div>
 
-      {/* Overlay Escuro (z-10) */}
-      {/* <div
-        className="absolute inset-0 bg-black pointer-events-none"
-        style={{ zIndex: 10, opacity: 0.6 }}
-      /> */}
+      <div className="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center pb-32">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-3xl"
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-medium text-white leading-[1.1] tracking-tight mb-6 drop-shadow-2xl">
+            Soluções Tecnológicas <br />
+            para uma Cadeia <br />
+            de Suprimentos Segura
+          </h1>
 
-      {/* Conteúdo Centralizado (z-20) */}
-      {/* <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ zIndex: 20 }}
-      >
-        <div className="container mx-auto px-6 h-full flex flex-col items-center justify-center text-center">
-          <div className="text-white">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl md:text-4xl lg:text-6xl tracking-tight font-display font-bold mb-4"
-              style={{
-                color: "#ffffff",
-                textShadow: "2px 2px 8px rgba(0,0,0,0.8)",
-                position: "relative",
-                zIndex: 25,
-              }}
-            >
-              Tecnologia que Transforma
-            </motion.h1>
+          <p className="text-lg md:text-xl text-white/90 font-light max-w-xl mb-10 leading-relaxed drop-shadow-lg">
+            Gerenciamos os desafios mais complexos de inspeção e tecnologia
+            para garantir a segurança do seu negócio.
+          </p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base md:text-lg lg:text-xl mb-8 max-w-3xl mx-auto"
-              style={{
-                color: "#e5e7eb",
-                textShadow: "1px 1px 6px rgba(0,0,0,0.8)",
-                position: "relative",
-                zIndex: 25,
-              }}
-            >
-              Desenvolvemos sistemas inteligentes que automatizam processos,
-              otimizam resultados e mantêm sua empresa segura.
-            </motion.p>
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center justify-center bg-pacsys-light text-white px-8 py-4 rounded-full font-medium text-lg shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all duration-300"
+          >
+            Fale Conosco
+          </motion.a>
+        </motion.div>
+      </div>
+
+      {/* 3. BARRA INFERIOR (Classic Transparent Bloom) */}
+      <div className="absolute bottom-0 left-0 right-0 z-20">
+        {/* Camada de vidro fosco "Ultra Clear" */}
+        <div className="absolute inset-0 bg-white/5 backdrop-blur-md border-t border-white/10 shadow-[0_-1px_20px_rgba(0,0,0,0.2)]" />
+        
+        <div className="container relative mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/5">
+            {features.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 + item.delay }}
+                className={`group flex items-center gap-4 py-6 md:py-8 px-4 relative transition-colors duration-300 hover:bg-white/5 ${
+                  "justify-start md:justify-center"
+                }`}
+              >
+                <item.icon 
+                  size={32} 
+                  strokeWidth={1.5}
+                  className="text-white/80 group-hover:text-pacsys-light transition-colors duration-300 shrink-0 drop-shadow-lg" 
+                />
+                <span className="text-sm md:text-base font-medium text-white/90 group-hover:text-white transition-colors duration-300 leading-tight drop-shadow-md">
+                  {item.title.split(" ").map((word, i) => (
+                      <span key={i}>
+                        {word} {i === 0 && item.title.split(" ").length > 2 ? <br/> : " "}
+                      </span>
+                  ))}
+                </span>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </div> */}
-
-      {/* Setas Customizadas (z-30) */}
-      <button
-        className="absolute top-1/2 left-4 md:left-8 -translate-y-1/2 text-white hover:opacity-80 transition-opacity z-30"
-        style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.8))" }}
-        onClick={() => sliderRef.current?.slickPrev()}
-        aria-label="Slide anterior"
-      >
-        <ChevronLeft size={48} />
-      </button>
-
-      <button
-        className="absolute top-1/2 right-4 md:right-8 -translate-y-1/2 text-white hover:opacity-80 transition-opacity z-30"
-        style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.8))" }}
-        onClick={() => sliderRef.current?.slickNext()}
-        aria-label="Próximo slide"
-      >
-        <ChevronRight size={48} />
-      </button>
-
-      {/* Gradiente no bottom - CORRIGIDO */}
-      <div className="absolute inset-x-0 bottom-0 h-32 w-full bg-linear-to-t from-background to-transparent z-40 pointer-events-none" />
+      </div>
     </section>
   );
 }

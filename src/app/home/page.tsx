@@ -1,6 +1,7 @@
 import { Header } from "./components/header";
-import {Hero} from "./components/hero";
-import { SectionSolution } from "./components/section-solutions";
+import { Hero } from "./components/hero";
+import { FooterSolution } from "./components/footer-solutions";
+import { SectionServices } from "./components/section-services"; 
 // import { Footer } from "./components/footer";
 
 export default async function HomePage() {
@@ -8,8 +9,13 @@ export default async function HomePage() {
     <main className="min-h-screen">
       <Header />
       <Hero />
-      <SectionSolution />
+    
+      
+      {/* Nova Secção de Serviços (Grid) */}
+      <SectionServices />
+      
       {/* <Footer /> */}
+      <FooterSolution />
     </main>
   );
 }
